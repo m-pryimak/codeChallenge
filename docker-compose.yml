@@ -1,0 +1,104 @@
+version: "3.7"
+services:
+
+  #MySQL container
+  mysql-db:
+    build: ./mysql-db
+    hostname: mysql-db
+    container_name: mysql-db
+    image: adidas/mysql-db:1.0.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=city_api
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    networks:
+      - spring-cloud-network
+      
+  # Config-server container
+  config-server:
+    build: ./config-server
+    container_name: config-server
+    image: adidas/config-server:1.0.0
+    expose:
+      - "9000"
+    networks:
+      - spring-cloud-network
+  # Eureka-server container
+  eureka-server:
+    build: ./eureka-server
+    container_name: eureka-server
+    image: adidas/eureka-server:1.0.0
+    restart: always
+    expose:
+      - "8761"
+    depends_on:
+      - config-server
+    networks:
+      - spring-cloud-network
+  
+   # City-data-server container.
+  city-data-server:
+    build: ./city-data-server
+    container_name: city-data-server
+    image: adidas/city-data-server:1.0.0
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db/city_api
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+    depends_on:
+      - mysql-db
+      - config-server
+      - eureka-server
+    expose:
+      - "8081"
+    networks:
+      - spring-cloud-network
+    
+  # Path-analyzer-server container.
+  path-analyzer-server:
+    build: ./path-analyzer-server
+    container_name: path-analyzer-server
+    image: adidas/path-analyzer-server:1.0.0
+    restart: always
+    depends_on:
+      - config-server
+      - eureka-server
+      - city-data-server
+    expose:
+      - "8082"
+    networks:
+      - spring-cloud-network
+
+  # security-server container
+  security-server:
+    build: ./security-server
+    container_name: security-server
+    image: adidas/security-server:1.0.0
+    restart: always
+    depends_on:
+      - config-server
+      - eureka-server
+    expose:
+      - "8000"
+    networks:
+      - spring-cloud-network
+  
+  # api-gateway-server container. This container is the only one exposed to the outside
+  api-gateway-server:
+    build: ./api-gateway-server
+    container_name: api-gateway-server
+    image: adidas/api-gateway-server:1.0.0
+    restart: always
+    depends_on:
+      - config-server
+      - eureka-server
+    ports:
+      - "8001:8001" 
+    networks:
+      - spring-cloud-network
+      
+networks:
+  spring-cloud-network:
+    driver: bridge
