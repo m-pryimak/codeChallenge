@@ -1,0 +1,34 @@
+server:
+  port: 9000
+ 
+spring:
+  cloud:
+    config:
+      name: config-server
+      server:
+        git:
+          uri: https://github.com/m-pryimak/codeChallenge.git
+          search-paths: 'config-files/{application}'
+  application:
+    name: config-server
+---
+server:
+  port: 9000
+ 
+spring:
+  profiles: docker
+  cloud:
+    config:
+      name: config-server
+      server:
+        git:
+          uri: https://github.com/m-pryimak/codeChallenge.git
+          search-paths: 'config-files/{application}'
+      fail-fast: true
+      retry:
+        initial-interval: 4000
+        max-attempts: 5
+        multiplier: 2.0
+        max-interval: 6000
+  application:
+    name: config-server

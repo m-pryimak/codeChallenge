@@ -1,0 +1,15 @@
+server:
+  port: 8000
+  
+security:
+  jwt:  
+    secretKey: JwtSecretKey
+    tokenPrefix: Bearer 
+    header: Authorization
+    expiration: 86400
+    url: /auth/**
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

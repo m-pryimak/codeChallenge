@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "841c67d2-54e0-48ee-95ac-01ba47f87c52",
+		"name": "City-App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"admin\", \"password\": \"admin\"} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8001/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"auth"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Calculate path by time",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "BearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNTc0MzQyMTM5LCJleHAiOjE1NzQ0Mjg1Mzl9.z6_SUQY8hzW5Ul0VXWmPWhQRJkNEtYlPTzmPBpLbucmlCTQL5mroGjpRsyG0wwaQKXJDxrN0zxvfHn89nGjLvQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8001/path-analyzer/path/calculate/bytime?city=London&destinationCity=Lviv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"path-analyzer",
+						"path",
+						"calculate",
+						"bytime"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "London"
+						},
+						{
+							"key": "destinationCity",
+							"value": "Lviv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Calculate path by connection",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "BearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNTc0MzQyMTM5LCJleHAiOjE1NzQ0Mjg1Mzl9.z6_SUQY8hzW5Ul0VXWmPWhQRJkNEtYlPTzmPBpLbucmlCTQL5mroGjpRsyG0wwaQKXJDxrN0zxvfHn89nGjLvQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8001/path-analyzer/path/calculate/byconnection?city=London&destinationCity=Lviv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"path-analyzer",
+						"path",
+						"calculate",
+						"byconnection"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "London"
+						},
+						{
+							"key": "destinationCity",
+							"value": "Lviv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all routes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "BearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNTc0MzQyMTM5LCJleHAiOjE1NzQ0Mjg1Mzl9.z6_SUQY8hzW5Ul0VXWmPWhQRJkNEtYlPTzmPBpLbucmlCTQL5mroGjpRsyG0wwaQKXJDxrN0zxvfHn89nGjLvQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8001/city-api/routes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"city-api",
+						"routes"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"protocolProfileBehavior": {}
+}

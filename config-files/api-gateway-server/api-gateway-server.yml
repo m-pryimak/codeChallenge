@@ -1,0 +1,37 @@
+server:
+  port: 8001
+
+eureka:
+  instance:
+      leaseRenewalIntervalInSeconds: 10
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+zuul:
+  routes:
+    city-data-server:
+      path: /city-api/**
+      serviceId: city-data-server
+    path-analyzer-server:
+      path: /path-analyzer/**
+      serviceId: path-analyzer-server 
+    security-server:
+      path: /auth/**
+      serviceId: security-server
+      stripPrefix: false
+      sensitiveHeaders: Cookie,Set-Cookie
+  ignoredServices: '*'
+spring:
+  cloud:
+    config:
+      allowOverride: true
+
+security:
+  jwt:
+    secretKey: JwtSecretKey
+    tokenPrefix: Bearer 
+    header: Authorization
+    expiration: 86400
+    uri: /auth/**
